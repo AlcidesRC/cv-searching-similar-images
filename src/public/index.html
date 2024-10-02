@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Nike.com ecommerce</title>
+
+    <link rel="stylesheet" crossorigin="anonymous" referrerpolicy="no-referrer" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" />
+
+    <script src="//cdn.jsdelivr.net/npm/vue@2.5.3"></script>
+    <script src="//cdn.jsdelivr.net/npm/http-vue-loader@1.4.2"></script>
+    <script src="//cdn.jsdelivr.net/npm/axios@1.5.1"></script>
+</head>
+<body>
+
+<div id="my-app">
+    <nike-component></nike-component>
+</div>
+
+<script type="text/javascript">
+    new Vue({
+        el: '#my-app',
+        components: {
+            'nike-component': httpVueLoader('components/nike.vue')
+        }
+    });
+</script>
+
+</body>
+</html>
