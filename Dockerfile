@@ -15,10 +15,8 @@ FROM base-image AS common
 # Add OS dependencies
 RUN apk update && apk add --no-cache \
         fcgi \
-        imagemagick \
-        imagemagick-dev \
-        libwebp \
-        libwebp-tools
+        imagemagick imagemagick-dev \
+        libwebp libwebp-tools
 
 # Add a custom HEALTHCHECK script
 # Ensure the `healthcheck.sh` can be executed inside the container
@@ -164,8 +162,7 @@ RUN sed -i -r "s/LISTEN/${LISTEN}/g" /healthcheck.sh
 
 # Add OS dependencies
 RUN apk update && apk add --no-cache \
-        zip \
-        libzip-dev
+        zip libzip-dev
 
 # Add __ONLY__ compiled extensions & their config files
 COPY --from=extensions-builder-prod /usr/local/lib/php/extensions/*/* /usr/local/lib/php/extensions/no-debug-non-zts-20230831/
