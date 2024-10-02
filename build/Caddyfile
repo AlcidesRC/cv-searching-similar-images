@@ -1,0 +1,33 @@
+(common) {
+	encode zstd gzip
+    respond /healthcheck 200
+    file_server
+}
+
+(ssl) {
+    tls internal
+}
+
+(cache-security) {
+    header {
+        Cache-Control "public, max-age=3600"
+    }
+}
+
+{$HOSTNAME} {
+    import common
+    import cache-security
+    import ssl
+
+    root * /var/www/html/public
+
+    php_fastcgi {$PHP_FPM_GATEWAYS} {
+        index index.php
+
+        resolve_root_symlink
+
+        dial_timeout 60s
+        read_timeout 300s
+        write_timeout 300s
+    }
+}
