@@ -55,10 +55,10 @@ jobs:
               run: ./src/vendor/bin/parallel-lint --colors -e php -j 10 ./src/app/ ./src/tests/
 
             - name: Check Style
-              run: ./src/vendor/bin/phpcs -p --colors --standard=phpcs.xml ./src/app/ ./src/tests/
+              run: ./src/vendor/bin/phpcs -p --colors --standard=./src/phpcs.xml ./src/app/ ./src/tests/
 
             - name: Check with PHPStan
               run: ./src/vendor/bin/phpstan analyse --configuration=./src/phpstan.neon ./src/app ./src/tests
 
             - name: Check Test Cases
-              run: ./src/vendor/bin/phpunit --configuration=./src/phpunit.xml
+              run: XDEBUG_MODE=off ./src/vendor/bin/phpunit --configuration=./src/phpunit.xml --coverage-text --colors --testdox --order-by=random --random-order-seed=$(head -200 /dev/urandom | cksum | cut -f1 -d " ")
