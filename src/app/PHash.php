@@ -9,6 +9,9 @@ use InvalidArgumentException;
 
 final class PHash
 {
+    private const INVALID_FILENAME = 'File [ {FILENAME} ] does not exists or is not readable.';
+    private const INVALID_COMP_METHOD = 'Comparison method [ {METHOD} ] is not supported.';
+
     public const COMP_METHOD_MEDIAN = 'median';
     public const COMP_METHOD_AVERAGE = 'average';
 
@@ -18,13 +21,23 @@ final class PHash
     public static function getHash(string $filename, string $comparisonMethod = self::COMP_METHOD_MEDIAN): string
     {
         if (!file_exists($filename) || !is_readable($filename)) {
-            throw new InvalidArgumentException('File [ ' . $filename . ' ] does not exists or is not readable.');
+            throw new InvalidArgumentException(strtr(self::INVALID_FILENAME, [
+                '{FILENAME}' => $filename,
+            ]));
+        }
+
+        if (!in_array($comparisonMethod, [self::COMP_METHOD_MEDIAN, self::COMP_METHOD_AVERAGE])) {
+            throw new InvalidArgumentException(strtr(self::INVALID_COMP_METHOD, [
+                '{METHOD}' => $comparisonMethod,
+            ]));
         }
 
         $img = (new Imagick());
         $img->readImageBlob((string) file_get_contents($filename));
-        $img->scaleImage(self::SIZE_DEFAULT, self::SIZE_DEFAULT);
+
         $img->setImageType(Imagick::IMGTYPE_GRAYSCALE);
+
+        $img->scaleImage(self::SIZE_DEFAULT, self::SIZE_DEFAULT);
 
         $matrix = $row = $rows = $col = [];
 
@@ -45,6 +58,7 @@ final class PHash
             for ($y = 0; $y < self::SIZE_DEFAULT; $y++) {
                 $col[$y] = $rows[$y][$x];
             }
+
             $matrix[$x] = self::calculateDCT($col);
         }
 
@@ -64,11 +78,11 @@ final class PHash
         // Get the threshold color
         $threshold = match ($comparisonMethod) {
             self::COMP_METHOD_MEDIAN => self::median($pixels),
-            default => self::average($pixels),
+            self::COMP_METHOD_AVERAGE => self::average($pixels),
         };
 
         // Calculate hash.
-        return implode('', array_map(function ($pixel) use ($threshold) {
+        return implode('', array_map(static function ($pixel) use ($threshold) {
             return ($pixel > $threshold) ? '1' : '0';
         }, $pixels));
     }

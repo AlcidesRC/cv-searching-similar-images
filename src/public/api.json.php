@@ -6,43 +6,76 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 
 use App\PHash;
 
-function getDatabase(string $filename, string $separator = ",", string $enclosure = "\"", string $escape = "\\"): array
+final class Catalog
 {
-    $lines = file($filename, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    private array $products;
 
-    // Remove headers
-    array_shift($lines);
+    public function __construct(string $filename)
+    {
+        $this->products = include($filename);
+        $this->ensureProductImagesAreHashed();
+    }
 
-    return array_map(function($line) use ($separator, $enclosure, $escape) {
-        [$id, $image, $name, $category, $models, $price, $phash] = str_getcsv($line, $separator, $enclosure, $escape);
+    public function sortCatalogBySimilarity(string $source): void
+    {
+        $this->sortCatalogBy($source, SORT_ASC);
+    }
 
-        return [
-          'id' => $id,
-          'image' => $image,
-          'name' => $name,
-          'category' => $category,
-          'models' => $models,
-          'price' => $price,
-          'hash' => $phash,
-        ];
-    }, $lines);
+    public function sortCatalogByDissimilarity(string $source): void
+    {
+        $this->sortCatalogBy($source, SORT_DESC);
+    }
+
+    public function getProducts(): array
+    {
+        return $this->products;
+    }
+
+    private function sortCatalogBy(string $source, int $sortingDirection): void
+    {
+        $submittedHash = $this->getSubmittedImageHash($source);
+
+        // Calculate the distance
+        $this->products = array_map(static function ($entry) use ($submittedHash) {
+            $entry['_distance'] = PHash::getDistance($entry['phash'], $submittedHash);
+            return $entry;
+        }, $this->products);
+
+        // Sort by distance (SORT_ASC = similar first, SORT_DESC = different first)
+        array_multisort(
+            array_column($this->products, '_distance'),
+            $sortingDirection,
+            $this->products
+        );
+    }
+
+    private function ensureProductImagesAreHashed(?bool $force = false): void
+    {
+        $this->products = array_map(static function (array $entry) use ($force) {
+            if ($force || !isset($entry['phash']) || empty($entry['phash'])) {
+                $filename = dirname(__DIR__) . '/public/' . $entry['image'];
+                $entry['phash'] = PHash::getHash($filename, PHash::COMP_METHOD_AVERAGE);
+            }
+            return $entry;
+        }, $this->products);
+    }
+
+    private function getSubmittedImageHash(string $source): string
+    {
+        $domain = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'];
+        $filename = str_replace($domain, __DIR__, $source);
+        return PHash::getHash($filename, PHash::COMP_METHOD_AVERAGE);
+    }
 }
 
-$catalog = getDatabase(dirname(__DIR__, 1) . '/db/database.csv');
+//---------------------------------------------------------------------------------------------------------------------
+
+$catalog = new Catalog(dirname(__DIR__) . '/config/products.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $filename = str_replace('https://' . $_SERVER['HTTP_HOST'], __DIR__, $_POST['src']);
-    $hash = PHash::getHash($filename, PHash::COMP_METHOD_AVERAGE);
-
-    // Calculate the distance
-    $catalog = array_map(function ($entry) use ($hash) {
-        $entry['_distance'] = PHash::getDistance($entry['hash'], $hash);
-        return $entry;
-    }, $catalog);
-
-    // Sort by distance (SORT_ASC = similar first, SORT_DESC = different first)
-    array_multisort(array_column($catalog, '_distance'), SORT_ASC, $catalog);
+    $catalog->sortCatalogBySimilarity($_POST['src']);
+    //$catalog->sortCatalogByDissimilarity($_POST['src']);
 }
 
 header('Content-Type: application/json; charset=utf-8');
-echo json_encode($catalog);
+echo json_encode($catalog->getProducts());

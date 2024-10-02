@@ -308,13 +308,5 @@ open-website: ## Application: open the application website
 	@$(call showAlert,"Press Ctrl+C to resume your session")
 	$(call taskDone)
 
-.PHONY: generate-database
-generate-database: ## Application: generates a fake database
-	@$(eval env ?= 'dev')
-	$(call showInfo,"Generating database...")
-	@echo ""
-	@$(DOCKER_RUN_AS_USER) php db/generate-database.php
-	$(call taskDone)
-
 .PHONY: init
-init: build composer-install generate-database install-caddy-certificate open-website ## Application: initializes the application
+init: build composer-install install-caddy-certificate open-website ## Application: initializes the application
