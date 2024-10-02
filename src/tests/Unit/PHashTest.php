@@ -20,11 +20,16 @@ final class PHashTest extends TestCase
 {
     private readonly string $PATH_FIXTURES;
 
+    public function __construct(string $name)
+    {
+        parent::__construct($name);
+
+        $this->PATH_FIXTURES = dirname(__DIR__) . '/Fixtures/';
+    }
+
     protected function setUp(): void
     {
         ClockMock::freeze(new \DateTime('2023-01-01 00:00:00'));
-
-        $this->PATH_FIXTURES = dirname(__DIR__) . '/Fixtures/';
     }
 
     protected function tearDown(): void
