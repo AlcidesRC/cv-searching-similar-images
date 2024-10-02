@@ -52,13 +52,13 @@ jobs:
               run: composer install --working-dir=./src --${{ matrix.dependency_version }} --no-interaction --no-progress --ansi
 
             - name: Check Syntax
-              run: composer check-syntax
+              run: ./src/vendor/bin/parallel-lint --colors -e php -j 10 ./src/app/ ./src/tests/
 
             - name: Check Style
-              run: composer check-style
+              run: ./src/vendor/bin/phpcs -p --colors --standard=phpcs.xml ./src/app/ ./src/tests/
 
             - name: Check with PHPStan
-              run: composer phpstan
+              run: ./src/vendor/bin/phpstan analyse --configuration=./src/phpstan.neon ./src/app ./src/tests
 
             - name: Check Test Cases
-              run: composer tests
+              run: ./src/vendor/bin/phpunit --configuration=./src/phpunit.xml
