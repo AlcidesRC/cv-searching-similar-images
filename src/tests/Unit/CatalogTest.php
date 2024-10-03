@@ -71,8 +71,11 @@ final class CatalogTest extends TestCase
 
     #[Test]
     #[DataProvider('dataProviderForSortCatalogBySimilarity')]
-    public function testSortCatalogBySimilarity(string $filename, int $expectedTotalProducts, string $sourceHash): void
-    {
+    public function testSortCatalogBySimilarity(
+        string $filename,
+        int $expectedTotalProducts,
+        string $sourceHash
+    ): void {
         $instance = new Catalog($this->getFixture($filename));
 
         $productsBefore = $instance->getProducts();
@@ -103,8 +106,11 @@ final class CatalogTest extends TestCase
 
     #[Test]
     #[DataProvider('dataProviderForSortCatalogByDissimilarity')]
-    public function testSortCatalogByDissimilarity(string $filename, int $expectedTotalProducts, string $sourceHash): void
-    {
+    public function testSortCatalogByDissimilarity(
+        string $filename,
+        int $expectedTotalProducts,
+        string $sourceHash
+    ): void {
         $instance = new Catalog($this->getFixture($filename));
 
         $productsBefore = $instance->getProducts();

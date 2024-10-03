@@ -68,8 +68,10 @@ final class PHashTest extends TestCase
 
     #[Test]
     #[DataProvider('dataProviderForGetHashWithComparisonMethodException')]
-    public function testGetHashWithComparisonMethodException(string $comparisonMethod, string $expectedExceptionMessage): void
-    {
+    public function testGetHashWithComparisonMethodException(
+        string $comparisonMethod,
+        string $expectedExceptionMessage
+    ): void {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage($expectedExceptionMessage);
 
