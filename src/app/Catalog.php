@@ -6,6 +6,9 @@ namespace App;
 
 final class Catalog
 {
+    /**
+     * @var non-empty-array<int,array> $products
+     */
     private array $products;
 
     public function __construct(string $filename)
@@ -24,6 +27,9 @@ final class Catalog
         $this->sortCatalogBy($sourceHash, SORT_DESC);
     }
 
+    /**
+     * @return non-empty-array<int,array>
+     */
     public function getProducts(): array
     {
         return $this->products;
@@ -38,8 +44,9 @@ final class Catalog
         }, $this->products);
 
         // Sort by distance (SORT_ASC = similar first, SORT_DESC = different first)
+        $column = array_column($this->products, '_distance');
         array_multisort(
-            array_column($this->products, '_distance'),
+            $column,
             $sortingDirection,
             $this->products
         );

@@ -59,13 +59,13 @@ final class CatalogTest extends TestCase
     }
 
     /**
-     * @return array<int, DataProviderEntry>
+     * @return array<string, array<int, int|string>>
      */
     public static function dataProviderForGetInstance(): array
     {
         return [
-            ['products-1.php', 2],
-            ['products-2.php', 2],
+            'Products #1' => ['products-1.php', 2],
+            'Products #2' => ['products-2.php', 2],
         ];
     }
 
@@ -95,12 +95,12 @@ final class CatalogTest extends TestCase
     }
 
     /**
-     * @return array<int, DataProviderEntry>
+     * @return array<string, array<int, int|string>>
      */
     public static function dataProviderForSortCatalogBySimilarity(): array
     {
         return [
-            ['products-1.php', 2, '1110010010011001100110010011001010010010010011001001001000110010'],
+            'Products #1' => ['products-1.php', 2, '1110010010011001100110010011001010010010010011001001001000110010'],
         ];
     }
 
@@ -130,12 +130,12 @@ final class CatalogTest extends TestCase
     }
 
     /**
-     * @return array<int, DataProviderEntry>
+     * @return array<string, array<int, int|string>>
      */
     public static function dataProviderForSortCatalogByDissimilarity(): array
     {
         return [
-            ['products-2.php', 2, '1110110110011001100100100010011010010010010001001001101000100011'],
+            'Products #2' => ['products-2.php', 2, '1110110110011001100100100010011010010010010001001001101000100011'],
         ];
     }
 }
