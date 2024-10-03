@@ -150,7 +150,7 @@ down: ## Docker: stops the service <env=[dev|prod]>
 	$(call taskDone)
 
 .PHONY: logs
-logs: ## Docker: exposes the service logs <env=[dev|prod]>
+logs: ## Docker: exposes the service logs <env=[dev|prod]> <service=[app1|caddy]>
 	@$(eval env ?= 'dev')
 	@$(eval service ?= 'caddy')
 	$(call showInfo,"Exposing service\(s\) logs...")
@@ -309,4 +309,6 @@ open-website: ## Application: open the application website
 	$(call taskDone)
 
 .PHONY: init
-init: build composer-install install-caddy-certificate open-website ## Application: initializes the application
+init: build composer-install install-caddy-certificate ## Application: initializes the application
+	$(call showInfo,"When ready just execute [ make open-website ] to visit the website with your preferred browser")
+	$(call taskDone)

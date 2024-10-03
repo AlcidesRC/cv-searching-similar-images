@@ -67,12 +67,12 @@ timeline
 ###### Process Description
 
 | Step | Name         | Description                                                  |
-| :--- | ------------ | :----------------------------------------------------------- |
+| ---- | ------------ | ------------------------------------------------------------ |
 | 1    | Source       |                                                              |
 | 2    | Greyscale    |                                                              |
 | 3    | 32×32 factor | This case uses a factor of 4, which is why the image is scaled down to (8×4)×(8×4), that is, a 32×32 image. |
 | 4    | DCT per row  | To this image, a discrete cosine transform is applied, first per row… |
-| 5    | DCT per col  | … and afterwards per column                                  |
+| 5    | DCT per col  | ...and afterwards per column                                 |
 | 6    | Top left 8×8 | The pixels with high frequencies are now located in the upper left  corner, which is why the image is cropped to the upper left 8×8 pixels. |
 | 7    | Median       | Next, calculate the median of the gray values in this image. |
 | 8    | Hash         | And finally, generate a hash value from the image.           |
@@ -80,7 +80,7 @@ timeline
 #### Example
 
 | Step | Name                  | Image                                                        |
-| :--- | --------------------- | ------------------------------------------------------------ |
+| ---- | --------------------- | ------------------------------------------------------------ |
 | 1    | Source                | <img width="300px" src="./README/phash-steps/source.png" alt="source" /> |
 | 2    | Convert to greyscale  | <img width="300px" src="./README/phash-steps/greyscale.png" alt="greyscale" /> |
 | 3    | 32×32 factor          | <img width="300px" src="./README/phash-steps/32x32.png" alt="32x32" /> |
@@ -154,8 +154,8 @@ $distance = $hasher->distance($hash1, $hash2);
 
 #### Example #1
 
-| Image #1                                                     | Image #2                                                     |
-| ------------------------------------------------------------ | ------------------------------------------------------------ |
+|                           Image #1                           |                           Image #2                           |
+| :----------------------------------------------------------: | :----------------------------------------------------------: |
 | <img src="./README/example-1-1.png" alt="Example 1" width="400px" /> | <img src="./README/example-1-2.png" alt="Example 1" width="400px" /> |
 
 | **Image** | **pHash**                                                    |
@@ -173,8 +173,8 @@ $distance = $hasher->distance($hash1, $hash2);
 
 #### Example #2
 
-| Image #1                                                             | Image #2                                                     |
-|----------------------------------------------------------------------| ------------------------------------------------------------ |
+|                           Image #1                           |                           Image #2                           |
+| :----------------------------------------------------------: | :----------------------------------------------------------: |
 | <img src="./README/example-2-1.png" alt="Example 2" width="400px" /> | <img src="./README/example-2-2.png" alt="Example 2" width="400px" /> |
 
 | **Image** | **pHash**                                                    |
@@ -279,7 +279,7 @@ A `Makefile` is provided with some predefined commands to improve the Developmen
 · up                                  Docker: starts the service <env=[dev|prod]>
 · restart                             Docker: restarts the service <env=[dev|prod]>
 · down                                Docker: stops the service <env=[dev|prod]>
-· logs                                Docker: exposes the service logs <env=[dev|prod]>
+· logs                                Docker: exposes the service logs <env=[dev|prod]> <service=[app1|caddy]>
 · shell                               Docker: establish a shell session into main container
 · install-caddy-certificate           Setup: extracts the Caddy Local Authority certificate
 · composer-dump                       Composer: runs <composer dump-auto>
@@ -295,7 +295,6 @@ A `Makefile` is provided with some predefined commands to improve the Developmen
 · phpmd                               Application: runs PHP Mess Detector
 · tests                               Application: runs PHPUnit testsuite
 · open-website                        Application: open the application website
-· generate-database                   Application: generates a fake database
 · init                                Application: initializes the application
 ```
 
@@ -335,6 +334,4 @@ $ make init
 
 
 
-Updated At: `2024-10-02`
-
-#### 
+> Updated At: `2024-10-03`
