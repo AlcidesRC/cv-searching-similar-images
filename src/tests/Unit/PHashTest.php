@@ -43,8 +43,8 @@ final class PHashTest extends TestCase
     }
 
     #[Test]
-    #[DataProvider('dataProviderForGetHashWithException')]
-    public function testGetHashWithException(string $filename, string $expectedExceptionMessage): void
+    #[DataProvider('dataProviderForGetHashWithFilenameException')]
+    public function testGetHashWithFilenameException(string $filename, string $expectedExceptionMessage): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage($expectedExceptionMessage);
@@ -55,10 +55,38 @@ final class PHashTest extends TestCase
     /**
      * @return array<int, DataProviderEntry>
      */
-    public static function dataProviderForGetHashWithException(): array
+    public static function dataProviderForGetHashWithFilenameException(): array
     {
+        $messageForInvalidFilename = strtr(PHash::INVALID_FILENAME, [
+            '{FILENAME}' => '/tmp/does-not-exists.jpg',
+        ]);
+
         return [
-            ['/tmp/does-not-exists.jpg', 'File [ /tmp/does-not-exists.jpg ] does not exists or is not readable.'],
+            ['/tmp/does-not-exists.jpg', $messageForInvalidFilename],
+        ];
+    }
+
+    #[Test]
+    #[DataProvider('dataProviderForGetHashWithComparisonMethodException')]
+    public function testGetHashWithComparisonMethodException(string $comparisonMethod, string $expectedExceptionMessage): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage($expectedExceptionMessage);
+
+        PHash::getHash($this->getFixture('picture-1.jpg'), $comparisonMethod);
+    }
+
+    /**
+     * @return array<int, DataProviderEntry>
+     */
+    public static function dataProviderForGetHashWithComparisonMethodException(): array
+    {
+        $messageForInvalidCompMethod = strtr(PHash::INVALID_COMP_METHOD, [
+            '{METHOD}' => 'xxxx',
+        ]);
+
+        return [
+            ['xxxx', $messageForInvalidCompMethod],
         ];
     }
 

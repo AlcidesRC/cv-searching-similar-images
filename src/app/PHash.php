@@ -9,8 +9,8 @@ use InvalidArgumentException;
 
 final class PHash
 {
-    private const INVALID_FILENAME = 'File [ {FILENAME} ] does not exists or is not readable.';
-    private const INVALID_COMP_METHOD = 'Comparison method [ {METHOD} ] is not supported.';
+    public const INVALID_FILENAME = 'File [ {FILENAME} ] does not exists or is not readable.';
+    public const INVALID_COMP_METHOD = 'Comparison method [ {METHOD} ] is not supported.';
 
     public const COMP_METHOD_MEDIAN = 'median';
     public const COMP_METHOD_AVERAGE = 'average';
