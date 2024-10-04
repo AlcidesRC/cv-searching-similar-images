@@ -33,7 +33,7 @@ SERVICE_APP   = app1
 
 #---
 
-WEBSITE_URL = https://dev.website.localhost
+WEBSITE_URL = https://localhost
 
 #---
 
@@ -106,7 +106,7 @@ help:
 	@echo "║ $(call pad,96) ║"
 	@echo "╚════════════════════════════════════════════════════════════════════════════════════════════════════════╝"
 	@echo "${BLACK}·${RESET} ${MAGENTA}DOMAIN(s)${BLACK} .... ${CYAN}$(WEBSITE_URL)${BLACK}"
-	@echo "${BLACK}·${RESET} ${MAGENTA}SERVICE(s)${BLACK} ... ${CYAN}$(SERVICE_CADDY)${BLACK}, ${CYAN}$(SERVICE_APP)${BLACK}"
+	@echo "${BLACK}·${RESET} ${MAGENTA}SERVICE(s)${BLACK} ... ${CYAN}$(shell docker ps --format "{{.Names}}")${BLACK}"
 	@echo "${BLACK}·${RESET} ${MAGENTA}USER${BLACK} ......... ${WHITE}(${CYAN}$(HOST_USER_ID)${WHITE})${BLACK} ${CYAN}$(HOST_USER_NAME)${BLACK}"
 	@echo "${BLACK}·${RESET} ${MAGENTA}GROUP${BLACK} ........ ${WHITE}(${CYAN}$(HOST_GROUP_ID)${WHITE})${BLACK} ${CYAN}$(HOST_GROUP_NAME)${BLACK}"
 	@echo "${RESET}"
@@ -155,7 +155,7 @@ logs: ## Docker: exposes the service logs <env=[dev|prod]> <service=[app1|caddy]
 	@$(eval service ?= 'caddy')
 	$(call showInfo,"Exposing service\(s\) logs...")
 	@echo ""
-	@$(DOCKER_COMPOSE) logs $(service)
+	@$(DOCKER_COMPOSE) logs -f $(service)
 	$(call taskDone)
 
 .PHONY: shell
@@ -164,6 +164,15 @@ shell: ## Docker: establish a shell session into main container
 	$(call showInfo,"Establishing a shell terminal with main service...")
 	@echo ""
 	@$(DOCKER_RUN_AS_USER) sh
+	$(call taskDone)
+
+.PHONY: inspect
+inspect: ## Docker: inspect the health for specific service <service=[app1|caddy]>
+	@$(eval service ?= 'caddy')
+	$(call showInfo,"Inspecting the health for a specific service...")
+	@echo ""
+	@docker inspect --format "{{json .State.Health}}" $(service) | jq
+	@echo ""
 	$(call taskDone)
 
 ###
