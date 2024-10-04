@@ -270,9 +270,8 @@ A `Makefile` is provided with some predefined commands to improve the Developmen
 ║                                    .: AVAILABLE COMMANDS :.                                    ║
 ║                                                                                                ║
 ╚════════════════════════════════════════════════════════════════════════════════════════════════╝
-
-· DOMAIN(s) .... https://dev.website.localhost
-· SERVICE(s) ... caddy, app1
+· DOMAIN(s) .... https://localhost
+· SERVICE(s) ... caddy app1
 · USER ......... (1000) alcidesramos
 · GROUP ........ (1000) alcidesramos
 
@@ -282,6 +281,7 @@ A `Makefile` is provided with some predefined commands to improve the Developmen
 · down                                Docker: stops the service <env=[dev|prod]>
 · logs                                Docker: exposes the service logs <env=[dev|prod]> <service=[app1|caddy]>
 · shell                               Docker: establish a shell session into main container
+· inspect                             Docker: inspect the health for specific service <service=[app1|caddy]>
 · install-caddy-certificate           Setup: extracts the Caddy Local Authority certificate
 · composer-dump                       Composer: runs <composer dump-auto>
 · composer-install                    Composer: runs <composer install>
