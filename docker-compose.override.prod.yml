@@ -16,7 +16,7 @@ services:
             context: .
             dockerfile: Dockerfile
             target: build-production
-        image: cv-phashes:prod
+        image: cv-searching-similar-images:prod
 
     app2:
         extends:
@@ -27,4 +27,4 @@ services:
             context: .
             dockerfile: Dockerfile
             target: build-production
-        image: cv-phashes:prod
+        image: cv-searching-similar-images:prod

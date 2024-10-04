@@ -36,7 +36,7 @@ services:
             context: .
             dockerfile: Dockerfile
             target: build-development
-        image: cv-phashes:dev
+        image: cv-searching-similar-images:dev
         restart: unless-stopped
         tty: true
         volumes:
