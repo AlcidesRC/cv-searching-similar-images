@@ -247,6 +247,7 @@ Remarked in purple you will find some new elements:
 | Git    | Required             | To interact with the VCS repository          |
 | Docker | Required             | To manage the development environment        |
 | Make   | Recommended          | To interact with the development environment |
+| jq     | Recommended          | To inspect the Docker services health        |
 
 ##### Makefile
 
