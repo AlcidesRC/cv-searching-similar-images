@@ -25,7 +25,7 @@ services:
             timeout: 1s
             retries: 3
             start_period: 10s
-            start_interval: 2s
+            #start_interval: 2s
         depends_on:
             app1:
                 condition: service_healthy
@@ -36,7 +36,7 @@ services:
             context: .
             dockerfile: Dockerfile
             target: build-development
-        image: app:development
+        image: cv-phashes:dev
         restart: unless-stopped
         tty: true
         volumes:
