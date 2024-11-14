@@ -1,3 +1,5 @@
+[![Continuous Integration](https://github.com/AlcidesRC/cv-searching-similar-images/actions/workflows/ci.yml/badge.svg)](https://github.com/AlcidesRC/cv-searching-similar-images/actions/workflows/ci.yml)
+
 # CV: Searching Similar Images
 
 [TOC]
@@ -336,4 +338,4 @@ $ make init
 
 
 
-> Updated At: `2024-10-03`
+> Updated At: `2024-11-14`
