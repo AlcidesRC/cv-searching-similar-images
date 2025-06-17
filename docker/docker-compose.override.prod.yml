@@ -13,7 +13,7 @@ services:
             file: docker-compose.yml
             service: app1
         build:
-            context: .
+            context: ..
             dockerfile: Dockerfile
             target: build-production
         image: cv-searching-similar-images:prod
@@ -24,7 +24,7 @@ services:
             service: app1
         container_name: app2
         build:
-            context: .
+            context: ..
             dockerfile: Dockerfile
             target: build-production
         image: cv-searching-similar-images:prod

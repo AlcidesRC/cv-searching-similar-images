@@ -83,13 +83,13 @@ timeline
 
 | Step | Name                  | Image                                                        |
 | ---- | --------------------- | ------------------------------------------------------------ |
-| 1    | Source                | <img width="300px" src="./README/phash-steps/source.png" alt="source" /> |
-| 2    | Convert to greyscale  | <img width="300px" src="./README/phash-steps/greyscale.png" alt="greyscale" /> |
-| 3    | 32×32 factor          | <img width="300px" src="./README/phash-steps/32x32.png" alt="32x32" /> |
-| 4    | DCT per row           | <img width="300px" src="./README/phash-steps/dct-row.png" alt="dct-row" /> |
-| 5    | DCT per col           | <img width="300px" src="./README/phash-steps/dct-col.png" alt="dct-col" /> |
-| 6    | Upper left 8×8 factor | <img width="300px" src="./README/phash-steps/8x8.png" alt="8x8" /> |
-| 7    | Median                | <img width="300px" src="./README/phash-steps/median.png" alt="median" /> |
+| 1    | Source                | <img width="300px" src=".README/phash-steps/source.png" alt="source" /> |
+| 2    | Convert to greyscale  | <img width="300px" src=".README/phash-steps/greyscale.png" alt="greyscale" /> |
+| 3    | 32×32 factor          | <img width="300px" src=".README/phash-steps/32x32.png" alt="32x32" /> |
+| 4    | DCT per row           | <img width="300px" src=".README/phash-steps/dct-row.png" alt="dct-row" /> |
+| 5    | DCT per col           | <img width="300px" src=".README/phash-steps/dct-col.png" alt="dct-col" /> |
+| 6    | Upper left 8×8 factor | <img width="300px" src=".README/phash-steps/8x8.png" alt="8x8" /> |
+| 7    | Median                | <img width="300px" src=".README/phash-steps/median.png" alt="median" /> |
 | 8    | Hash                  | `1010010010101101100110011011001101100010100100000111011010101110` |
 
 
@@ -158,7 +158,7 @@ $distance = $hasher->distance($hash1, $hash2);
 
 |                           Image #1                           |                           Image #2                           |
 | :----------------------------------------------------------: | :----------------------------------------------------------: |
-| <img src="./README/example-1-1.png" alt="Example 1" width="400px" /> | <img src="./README/example-1-2.png" alt="Example 1" width="400px" /> |
+| <img src=".README/example-1-1.png" alt="Example 1" width="400px" /> | <img src=".README/example-1-2.png" alt="Example 1" width="400px" /> |
 
 | **Image** | **pHash**                                                    |
 | --------- | ------------------------------------------------------------ |
@@ -177,7 +177,7 @@ $distance = $hasher->distance($hash1, $hash2);
 
 |                           Image #1                           |                           Image #2                           |
 | :----------------------------------------------------------: | :----------------------------------------------------------: |
-| <img src="./README/example-2-1.png" alt="Example 2" width="400px" /> | <img src="./README/example-2-2.png" alt="Example 2" width="400px" /> |
+| <img src=".README/example-2-1.png" alt="Example 2" width="400px" /> | <img src=".README/example-2-2.png" alt="Example 2" width="400px" /> |
 
 | **Image** | **pHash**                                                    |
 | --------- | ------------------------------------------------------------ |
@@ -210,7 +210,7 @@ When using the native application you can find sneakers by navigating their cata
 
 ##### Screenshot
 
-<img src="./README/web-application/nike-mobile-app.jpg" alt="nike-mobile-app" height="500px" />
+<img src=".README/web-application/nike-mobile-app.jpg" alt="nike-mobile-app" height="500px" />
 
 #### Web Application
 
@@ -218,7 +218,7 @@ But when visiting the web application this feature is missing. There is no any w
 
 ##### Screenshot
 
-<img src="./README/web-application/nike-original-website.png" alt="nike-original-website" style="zoom:75%;" />
+<img src=".README/web-application/nike-original-website.png" alt="nike-original-website" style="zoom:75%;" />
 
 ### Introduction
 
@@ -240,7 +240,7 @@ Remarked in purple you will find some new elements:
 
 #### Screenshot
 
-<img src="./README/web-application/nike-improved-website.png" alt="nike-original-website" style="zoom:50%;" />
+<img src=".README/web-application/nike-improved-website.png" alt="nike-original-website" style="zoom:50%;" />
 
 #### Technical Requirements
 

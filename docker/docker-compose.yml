@@ -5,7 +5,7 @@ volumes:
 services:
     caddy:
         container_name: caddy
-        image: caddy:2.8.4-alpine
+        image: caddy:2.10-alpine
         restart: unless-stopped
         environment:
             - HOSTNAME=localhost
@@ -13,8 +13,8 @@ services:
         volumes:
             - caddy_data:/data
             - caddy_config:/config
-            - ./src:/var/www/html
-            - ./build/Caddyfile:/etc/caddy/Caddyfile:ro
+            - ../src:/var/www/html
+            - ./caddy/Caddyfile:/etc/caddy/Caddyfile:ro
         ports:
             - 80:80
             - 443:443
@@ -40,4 +40,4 @@ services:
         restart: unless-stopped
         tty: true
         volumes:
-            - ./src:/var/www/html
+            - ../src:/var/www/html

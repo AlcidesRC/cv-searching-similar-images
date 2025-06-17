@@ -44,7 +44,7 @@ HOST_GROUP_NAME := $(shell id --group --name)
 
 #---
 
-DOCKER_COMPOSE         = docker compose --file docker-compose.yml --file docker-compose.override.$(env).yml
+DOCKER_COMPOSE         = docker compose --file docker/docker-compose.yml --file docker/docker-compose.override.$(env).yml
 
 DOCKER_BUILD_ARGUMENTS = --build-arg="HOST_USER_ID=$(HOST_USER_ID)" --build-arg="HOST_USER_NAME=$(HOST_USER_NAME)" --build-arg="HOST_GROUP_ID=$(HOST_GROUP_ID)" --build-arg="HOST_GROUP_NAME=$(HOST_GROUP_NAME)"
 
@@ -122,7 +122,7 @@ build: ## Docker: builds the service <env=[dev|prod]>
 	@$(eval env ?= 'dev')
 	$(call showInfo,"Building Docker image\(s\)...")
 	@echo ""
-	@$(DOCKER_COMPOSE) build $(DOCKER_BUILD_ARGUMENTS)
+	@COMPOSE_BAKE=true $(DOCKER_COMPOSE) build $(DOCKER_BUILD_ARGUMENTS)
 	$(call taskDone)
 
 .PHONY: up
