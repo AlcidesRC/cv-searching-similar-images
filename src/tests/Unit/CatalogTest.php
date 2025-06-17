@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Unit;
+namespace UnitTests;
 
 use App\Catalog;
 use App\PHash;
