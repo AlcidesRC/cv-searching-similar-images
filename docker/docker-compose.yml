@@ -33,8 +33,8 @@ services:
     app1:
         container_name: app1
         build:
-            context: .
-            dockerfile: Dockerfile
+            context: ..
+            dockerfile: docker/Dockerfile
             target: build-development
         image: cv-searching-similar-images:dev
         restart: unless-stopped

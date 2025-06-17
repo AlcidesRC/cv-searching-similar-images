@@ -20,7 +20,7 @@ RUN apk update && apk add --no-cache \
 
 # Add a custom HEALTHCHECK script
 # Ensure the `healthcheck.sh` can be executed inside the container
-COPY --chmod=777 ./healthcheck.sh /healthcheck.sh
+COPY --chmod=777 docker/healthcheck.sh /healthcheck.sh
 HEALTHCHECK --interval=30s --timeout=1s --retries=3 --start-period=10s --start-interval=2s CMD /healthcheck.sh
 
 WORKDIR /var/www/html
@@ -110,12 +110,12 @@ RUN apk update && apk add --no-cache \
         util-linux
 
 # Setup PHP-FPM
-COPY ./php-fpm/www.conf /usr/local/etc/php-fpm.d/www.conf
+COPY docker/php-fpm/www.conf /usr/local/etc/php-fpm.d/www.conf
 RUN sed -i -r "s/USER-NAME/${HOST_USER_NAME}/g" /usr/local/etc/php-fpm.d/www.conf \
     && sed -i -r "s/GROUP-NAME/${HOST_GROUP_NAME}/g" /usr/local/etc/php-fpm.d/www.conf
 
 # Setup xDebug
-COPY ./php-fpm/xdebug.ini /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+COPY docker/php-fpm/xdebug.ini /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 RUN touch /var/log/xdebug.log \
     && chown ${HOST_USER_NAME}:${HOST_GROUP_NAME} /var/log/xdebug.log
 
@@ -175,6 +175,6 @@ COPY --from=extensions-builder-imagick /usr/local/etc/php/conf.d/* /usr/local/et
 COPY --from=optimize-php-dependencies --chown=www-data:www-data /app /var/www/html
 
 # Setup PHP-FPM
-COPY ./php-fpm/www.conf /usr/local/etc/php-fpm.d/www.conf
+COPY docker/php-fpm/www.conf /usr/local/etc/php-fpm.d/www.conf
 RUN sed -i -r "s/USER-NAME/www-data/g" /usr/local/etc/php-fpm.d/www.conf \
     && sed -i -r "s/GROUP-NAME/www-data/g" /usr/local/etc/php-fpm.d/www.conf
